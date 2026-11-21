@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twin Frames — Spot the Difference</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="hud">
+    <div class="brand">
+      <span class="brand-mark">TF</span>
+      <div class="brand-text">
+        <strong>TWIN FRAMES</strong>
+        <span>spot the difference</span>
+      </div>
+    </div>
+    <div class="hud-stat" id="levelStat">
+      <label>LEVEL</label>
+      <b id="levelName">1 · Harbor Dawn</b>
+      <span class="level-dots" id="levelDots"></span>
+    </div>
+    <div class="hud-stat">
+      <label>FOUND</label>
+      <b id="foundCount">0 / 7</b>
+    </div>
+    <div class="hud-stat highlight">
+      <label>REMAINING</label>
+      <b id="remainCount">7 LEFT</b>
+    </div>
+    <div class="hud-stat">
+      <label>TIME</label>
+      <b id="timeLeft">3:00</b>
+    </div>
+    <div class="hud-stat">
+      <label>SCORE</label>
+      <b id="score">0</b>
+    </div>
+    <div class="hud-buttons">
+      <button id="hintBtn" type="button" title="Hint (H) — reveals one difference for a moment">💡 HINT <span id="hintCount">3</span></button>
+      <button id="muteBtn" type="button" title="Sound (M)">SOUND ON</button>
+      <button id="pauseBtn" type="button" title="Pause (P)">II</button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <section class="panel" id="panelLeft">
+      <div class="panel-tag"><span class="tag-dot"></span> ORIGINAL</div>
+      <canvas id="canvasLeft" width="600" height="400"></canvas>
+    </section>
+    <section class="panel" id="panelRight">
+      <div class="panel-tag"><span class="tag-dot twin"></span> TWIN</div>
+      <canvas id="canvasRight" width="600" height="400"></canvas>
+    </section>
+    <div id="crosshair" aria-hidden="true"></div>
+  </main>
+
+  <footer id="tray">
+    <div id="diffDots" aria-label="differences found"></div>
+    <p id="tip">Click a difference on either picture — or move with arrow keys and press Enter. <kbd>H</kbd> hint · <kbd>M</kbd> sound · <kbd>P</kbd> pause</p>
+  </footer>
+
+  <nav id="scenesBar" aria-label="scenes">
+    <div class="scene-chip" data-scene="0"><b>1</b><span>Harbor Dawn</span><em>180s · 7 to find</em></div>
+    <div class="scene-chip" data-scene="1"><b>2</b><span>Enchanted Garden</span><em>150s · 7 to find</em></div>
+    <div class="scene-chip" data-scene="2"><b>3</b><span>The Old Library</span><em>120s · 7 to find</em></div>
+    <div class="scene-chip" data-scene="3"><b>4</b><span>Night Market</span><em>120s · 7 to find</em></div>
+  </nav>
+
+  <div class="overlay" id="titleScreen">
+    <div class="card">
+      <p class="eyebrow">A HUNT FOR SHARP EYES</p>
+      <h1>TWIN<br>FRAMES</h1>
+      <p class="tagline">Two pictures. Seven tiny lies between them.<br>Find them all before the clock runs out.</p>
+      <div class="rules">
+        <div><b>7</b><span>differences<br>per scene</span></div>
+        <div><b>4</b><span>hand-painted<br>scenes</span></div>
+        <div><b>−3s</b><span>for a wrong<br>click</span></div>
+      </div>
+      <button class="big-btn" id="playBtn" type="button">▶ &nbsp;START THE HUNT</button>
+      <p class="how">Mouse or arrow keys + Enter to mark · H for a hint · find all 7 to unlock the next scene</p>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="levelScreen">
+    <div class="card">
+      <p class="eyebrow" id="levelEyebrow">SCENE COMPLETE</p>
+      <h2 id="levelTitle">Harbor Dawn</h2>
+      <p class="tagline" id="levelSummary">All 7 differences found.</p>
+      <div class="score-table" id="levelStats"></div>
+      <button class="big-btn" id="nextBtn" type="button">NEXT SCENE →</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="endScreen">
+    <div class="card">
+      <p class="eyebrow">THE HUNT IS OVER</p>
+      <h2 id="endTitle">Master Spotter!</h2>
+      <p class="tagline" id="endSummary"></p>
+      <div class="score-table" id="endStats"></div>
+      <button class="big-btn" id="againBtn" type="button">↻ &nbsp;PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="pauseScreen">
+    <div class="card small">
+      <h2>Paused</h2>
+      <p class="tagline">Take a breath. The pictures are not going anywhere.</p>
+      <button class="big-btn" id="resumeBtn" type="button">RESUME</button>
+    </div>
+  </div>
+
+  <div id="toast" aria-live="polite"></div>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
